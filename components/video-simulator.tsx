@@ -94,7 +94,23 @@ export function VideoSimulator() {
       const id = await sessionService.createSession(user.uid, 'video');
       setSessionId(id);
       
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      } catch (e: any) {
+        if (e.name === 'NotAllowedError') {
+          // Diagnostic: Check if it's just audio or just video
+          try {
+            await navigator.mediaDevices.getUserMedia({ video: true });
+            throw new Error("MICROPHONE_BLOCKED");
+          } catch (vErr: any) {
+            if (vErr.message === "MICROPHONE_BLOCKED") throw vErr;
+            throw new Error("CAMERA_OR_ALL_BLOCKED");
+          }
+        }
+        throw e;
+      }
+
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
@@ -122,8 +138,10 @@ export function VideoSimulator() {
       toast.success("Recording started");
     } catch (err: any) {
       console.error("Recording error:", err);
-      if (err.name === 'NotAllowedError') {
-        toast.error("Permission denied: Please ensure your browser and OS (Windows/Mac) have camera/mic access enabled for this site.");
+      if (err.message === "MICROPHONE_BLOCKED") {
+        toast.error("Microphone Access Denied: Your system (Windows) is blocking the microphone. Please check Windows Privacy Settings for Microphone.");
+      } else if (err.message === "CAMERA_OR_ALL_BLOCKED" || err.name === 'NotAllowedError') {
+        toast.error("Camera/System Permission Denied: Please check Windows Privacy Settings for BOTH Camera and Microphone.");
       } else {
         toast.error(`Could not start session: ${err.message}`);
       }
