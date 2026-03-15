@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "header": "Initial Screen Simulation",
+    "type": "Video Interview",
+    "status": "Done",
+    "target": "85",
+    "limit": "2024-03-10",
+    "reviewer": "AI Coach"
+  },
+  {
+    "id": 2,
+    "header": "Objection Handling — Competitor",
+    "type": "AI Call",
+    "status": "Done",
+    "target": "72",
+    "limit": "2024-03-11",
+    "reviewer": "AI Coach"
+  },
+  {
+    "id": 3,
+    "header": "Discovery Call Practice",
+    "type": "AI Call",
+    "status": "In Progress",
+    "target": "N/A",
+    "limit": "2024-03-12",
+    "reviewer": "AI Coach"
+  },
+  {
+    "id": 4,
+    "header": "Product Pitch — SaaS Core",
+    "type": "Video Interview",
+    "status": "Done",
+    "target": "91",
+    "limit": "2024-03-13",
+    "reviewer": "AI Coach"
+  },
+  {
+    "id": 5,
+    "header": "Cold Outreach — Fintech",
+    "type": "Assignment",
+    "status": "Done",
+    "target": "88",
+    "limit": "2024-03-14",
+    "reviewer": "Reviewer"
+  }
+]
