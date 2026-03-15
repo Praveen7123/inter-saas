@@ -1,22 +1,29 @@
-import Link from "next/link";
+"use client"
 
-import { Layout } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/providers/auth-provider";
 
 export default function Home() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading) {
+      if (user) {
+        router.push("/dashboard");
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [user, loading, router]);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Link href="/dashboard">
-            <Button>
-              <Layout className="size-4" />
-              Go to dashboard
-            </Button>
-          </Link>
-        </div>
-      </main>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="animate-pulse text-muted-foreground flex flex-col items-center gap-2">
+        <div className="size-12 rounded-full border-4 border-primary border-t-transparent animate-spin mb-4" />
+        <p className="font-medium italic">Redirecting to platform...</p>
+      </div>
     </div>
   );
 }
