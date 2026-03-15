@@ -9,6 +9,13 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ActiveThemeProvider } from "@/components/active-theme";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "saaspire.co",
@@ -23,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-background overscroll-none font-sans antialiased">
+      <body className={cn("bg-background overscroll-none font-sans antialiased", poppins.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
