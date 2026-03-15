@@ -11,9 +11,9 @@ import { ActiveThemeProvider } from "@/components/active-theme";
 import { AuthProvider } from "@/components/providers/auth-provider";
 
 export const metadata: Metadata = {
-  title: "Orcish Dashboard",
+  title: "saaspire.co",
   description:
-    "A fully responsive analytics dashboard featuring dynamic charts, interactive tables, a collapsible sidebar, and a light/dark mode theme switcher. Built with modern web technologies, it ensures seamless performance across devices, offering an intuitive user interface for data visualization and exploration.",
+    "The Premier Launchpad for B2C Reps Breaking Into SaaS.",
 };
 
 export default function RootLayout({
