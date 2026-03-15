@@ -1,12 +1,10 @@
-import { db, storage } from "@/lib/firebase/config";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "@/lib/firebase/config";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export const resumeService = {
   async uploadAndAnalyze(userId: string, file: File) {
-    const storageRef = ref(storage, `resumes/${userId}/${file.name}`);
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
+    // Skip storage upload as per user request
+    const url = "local-file-skip-storage"; 
 
     const analysis = {
       salesMetrics: "Achieved 120% of quota consistently.",

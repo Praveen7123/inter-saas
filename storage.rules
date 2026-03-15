@@ -1,9 +1,0 @@
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      // Allow authenticated users to upload and read their own files (based on metadata or path convention)
-      allow read, write: if request.auth != null;
-    }
-  }
-}

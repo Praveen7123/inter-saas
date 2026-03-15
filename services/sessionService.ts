@@ -1,6 +1,5 @@
-import { db, storage } from "@/lib/firebase/config";
+import { db } from "@/lib/firebase/config";
 import { collection, addDoc, updateDoc, doc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Session } from "@/types/session";
 
 export const sessionService = {
@@ -16,24 +15,18 @@ export const sessionService = {
 
   async completeSession(sessionId: string, videoBlob?: Blob) {
     const sessionRef = doc(db, "sessions", sessionId);
-    let videoUrl = "";
 
-    if (videoBlob) {
-      const storageRef = ref(storage, `sessions/${sessionId}/video.webm`);
-      await uploadBytes(storageRef, videoBlob);
-      videoUrl = await getDownloadURL(storageRef);
-    }
-
+    // Skip video upload to Storage as per user request (credit concerns)
     await updateDoc(sessionRef, {
       status: 'completed',
       completedAt: serverTimestamp(),
-      videoUrl,
+      videoUrl: "", // No persistent video URL without Storage
     });
   },
 
   async uploadSnapshot(sessionId: string, blob: Blob, timestamp: number) {
-    const storageRef = ref(storage, `sessions/${sessionId}/snapshots/${timestamp}.jpg`);
-    await uploadBytes(storageRef, blob);
-    return getDownloadURL(storageRef);
+    // Skip snapshot upload to Storage
+    console.log("Snapshot captured but skip upload (Storage disabled)");
+    return ""; // No URL available
   }
 };
