@@ -143,7 +143,7 @@ export function VideoSimulator() {
       } else if (err.message === "CAMERA_OR_ALL_BLOCKED" || err.name === 'NotAllowedError') {
         toast.error("Camera/System Permission Denied: Please check Windows Privacy Settings for BOTH Camera and Microphone.");
       } else {
-        toast.error(`Could not start session: ${err.message}`);
+        toast.error(`Could not start session [${err.name}]: ${err.message}`);
       }
     }
   };
@@ -214,7 +214,7 @@ export function VideoSimulator() {
             </Badge>
           )}
           <Badge variant="secondary" className="bg-black/20 text-white backdrop-blur-md border-white/10 uppercase tracking-tighter font-mono">
-            {loadingAI ? "Loading AI..." : "AI Connected"}
+            {loadingAI ? "Loading AI..." : "AI Connected v2"}
           </Badge>
         </div>
 
@@ -250,7 +250,7 @@ export function VideoSimulator() {
             <div className="size-16 rounded-full border-2 border-dashed border-white/40 flex items-center justify-center">
               <IconPlayerRecord className="size-8" />
             </div>
-            <p className="font-medium text-sm">Click Start to begin session</p>
+            <p className="font-medium text-sm">Diagnostic Mode: Click Start to begin</p>
           </div>
         )}
       </div>
