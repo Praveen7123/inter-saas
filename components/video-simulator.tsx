@@ -122,7 +122,11 @@ export function VideoSimulator() {
       toast.success("Recording started");
     } catch (err: any) {
       console.error("Recording error:", err);
-      toast.error(`Could not start session: ${err.message}`);
+      if (err.name === 'NotAllowedError') {
+        toast.error("Permission denied: Please ensure your browser and OS (Windows/Mac) have camera/mic access enabled for this site.");
+      } else {
+        toast.error(`Could not start session: ${err.message}`);
+      }
     }
   };
 
