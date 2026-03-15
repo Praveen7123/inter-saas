@@ -47,15 +47,11 @@ export function useAssignments() {
     // OR just use a simpler query if 'all' is the default.
     // Let's stick to a simple query for now.
     
-    const unsubscribe = onSnapshot(assignmentsRef, (snapshot) => {
+    const unsubscribe = onSnapshot(q || assignmentsRef, (snapshot) => {
       let data = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as Assignment[];
-
-      if (role !== 'admin') {
-        data = data.filter(a => a.assignedTo === user.uid || a.assignedTo === 'all');
-      }
 
       setAssignments(data);
       setLoading(false);
